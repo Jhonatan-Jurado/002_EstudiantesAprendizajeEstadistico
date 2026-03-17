@@ -18,8 +18,13 @@ def runner(dataset: pl.DataFrame, dataset_name: str):
 
     artifacts_path = Path(f"{path}/{dataset_name}")
 
+    artifacts_plots_path = artifacts_path / "plots"
+
     if not artifacts_path.exists():
         artifacts_path.mkdir(parents=True, exist_ok=True)
+
+    if not artifacts_plots_path.exists():
+        artifacts_plots_path.mkdir(parents=True, exist_ok=True)
 
     # Part A: Exploration
 
@@ -254,7 +259,7 @@ def runner(dataset: pl.DataFrame, dataset_name: str):
         plt.xticks(rotation=45)
         plt.tight_layout()
         plt.show()
-        figure.savefig(f"{artifacts_path}/categorical_count_plot_{col}.png")
+        figure.savefig(f"{artifacts_plots_path}/categorical_count_plot_{col}.png")
 
 
     # 11. Histograms for numeric columns and description of their distribution
@@ -268,7 +273,7 @@ def runner(dataset: pl.DataFrame, dataset_name: str):
         plt.title(f"Histogram of {col}")
         plt.tight_layout()
         plt.show()
-        hist.get_figure().savefig(f"{artifacts_path}/histogram_{col}.png")
+        hist.get_figure().savefig(f"{artifacts_plots_path}/histogram_{col}.png")
         # Shape of the distribution
             ## Simetric, or skewed to the right or left, unimodal or multimodal, etc.
 
@@ -364,7 +369,7 @@ def runner(dataset: pl.DataFrame, dataset_name: str):
             plt.xticks(rotation=45)
             plt.tight_layout()
             plt.show()
-            figure.savefig(f"{artifacts_path}/boxplot_{num_col}_by_{cat_col}.png")
+            figure.savefig(f"{artifacts_plots_path}/boxplot_{num_col}_by_{cat_col}.png")
 
 
     # 13. Scatter plots for numeric columns colored by categorical columns
@@ -381,7 +386,7 @@ def runner(dataset: pl.DataFrame, dataset_name: str):
                     plt.legend(title=cat_col)
                     plt.tight_layout()
                     plt.show()
-                    figure.savefig(f"{artifacts_path}/scatterplot_{num_col1}_vs_{num_col2}_by_{cat_col}.png")
+                    figure.savefig(f"{artifacts_plots_path}/scatterplot_{num_col1}_vs_{num_col2}_by_{cat_col}.png")
 
 
     # 14. Heatmap of the correlation matrix for numeric columns
@@ -391,7 +396,7 @@ def runner(dataset: pl.DataFrame, dataset_name: str):
     plt.title("Heatmap of Pearson Correlation Matrix")
     plt.tight_layout()
     plt.show()
-    figure.savefig(f"{artifacts_path}/heatmap_pearson_corr.png")
+    figure.savefig(f"{artifacts_plots_path}/heatmap_pearson_corr.png")
 
     # Part D: Hipothesis (whithout causality)
 
